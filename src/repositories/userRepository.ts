@@ -10,15 +10,18 @@ async function find(id: number) {
 }
 
 async function findByEmail(email: string) {
-  return prisma.user.findUnique({
+  console.log("userRepository: email:", email);
+  const user = await prisma.user.findUnique({
     where: {
       email: email,
     },
   });
+  console.log("userRepository: user:", user);
+  return user;
 }
 
 async function create(userData: signupData) {
-  prisma.user.create({
+  await prisma.user.create({
     data: {
       email: userData.email,
       name: userData.name,
@@ -27,8 +30,18 @@ async function create(userData: signupData) {
   });
 }
 
+async function createSession(userId: number, token: string) {
+  prisma.session.create({
+    data: {
+      userId: userId,
+      token: token,
+    },
+  });
+}
+
 export default {
   find,
   findByEmail,
   create,
+  createSession,
 };
