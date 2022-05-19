@@ -1,6 +1,11 @@
 /* import { Example } from "@prisma/client"; */
 import userRepository from "../repositories/userRepository.js";
-import { badRequest, duplicateError, unauthorized } from "../utils/errors.js";
+import {
+  badRequest,
+  duplicateError,
+  notFoundError,
+  unauthorized,
+} from "../utils/errors.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { signupData, signinData } from "../controllers/userController.js";
@@ -50,7 +55,17 @@ async function getUserOrFail(signInData: signinData) {
   return user;
 }
 
+async function findById(id: number) {
+  if (!id) throw unauthorized("userId missing");
+
+  const user = await userRepository.findById(id);
+  if (!user) throw notFoundError("userId");
+
+  return user;
+}
+
 export default {
   signUp,
   signIn,
+  findById,
 };

@@ -24,3 +24,8 @@ model Session {
   userId Int
   token  String @unique
 }
+
+model Ingredient {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
