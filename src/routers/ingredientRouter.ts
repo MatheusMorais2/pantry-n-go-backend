@@ -9,8 +9,43 @@ const ingredientRouter = Router();
 ingredientRouter.get(
   "/ingredient/search/:ingredient",
   errorHandlingMiddleware,
-  /*   ensureAuthenticatedMiddleware, */
+  ensureAuthenticatedMiddleware,
   ingredientController.searchIngredients
+);
+
+ingredientRouter.post(
+  "/ingredient/create/:ingredient",
+  errorHandlingMiddleware,
+  ensureAuthenticatedMiddleware,
+  ingredientController.createIngredient
+);
+
+ingredientRouter.get(
+  "/ingredient/user",
+  errorHandlingMiddleware,
+  ensureAuthenticatedMiddleware,
+  ingredientController.getUserIngredients
+);
+
+ingredientRouter.post(
+  "/ingredient/user",
+  errorHandlingMiddleware,
+  ensureAuthenticatedMiddleware,
+  ingredientController.createUserIngredient
+);
+
+ingredientRouter.delete(
+  "/ingredient/user/:userIngredientId",
+  errorHandlingMiddleware,
+  ensureAuthenticatedMiddleware,
+  ingredientController.deleteUserIngredient
+);
+
+ingredientRouter.get(
+  "/ingredient/recommended",
+  errorHandlingMiddleware,
+  ensureAuthenticatedMiddleware,
+  ingredientController.getRecommendedIngredients
 );
 
 export default ingredientRouter;

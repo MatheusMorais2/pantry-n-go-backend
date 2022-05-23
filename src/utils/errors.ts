@@ -25,3 +25,10 @@ export function badRequest(entity: string) {
     message: `${entity} is in a incorrect format`,
   };
 }
+
+export function spoonacularError() {
+  return {
+    type: "Internal error",
+    message: "Internal error",
+  };
+}

@@ -33,7 +33,6 @@ async function create(userData: signupData) {
   await prisma.user.create({
     data: {
       email: userData.email,
-      name: userData.name,
       password: userData.password,
     },
   });

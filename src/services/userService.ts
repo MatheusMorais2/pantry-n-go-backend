@@ -25,8 +25,6 @@ async function signUp(signupData: signupData) {
 }
 
 async function signIn(signInData: signinData) {
-  console.log("chegou aqui no service/signIn");
-  console.log("signInData: ", signInData);
   const user = await getUserOrFail(signInData);
 
   const twoDays = 60 * 60 * 24 * 2;
@@ -34,16 +32,15 @@ async function signIn(signInData: signinData) {
   const signature = { userId: user.id };
 
   const token = jwt.sign(signature, process.env.JWT_SECRET, config);
-  console.log("token: ", token);
 
   await userRepository.createSession(user.id, token);
 
-  return { token, name: user.name };
+  return { token };
 }
 
 async function getUserOrFail(signInData: signinData) {
   const user = await userRepository.findByEmail(signInData.email);
-  console.log("user: ", user);
+
   if (!user) throw unauthorized("Invalid credentials");
 
   const isPasswordValid = bcrypt.compareSync(
@@ -59,7 +56,7 @@ async function findById(id: number) {
   if (!id) throw unauthorized("userId missing");
 
   const user = await userRepository.findById(id);
-  if (!user) throw notFoundError("userId");
+  if (!user) throw notFoundError("User");
 
   return user;
 }
@@ -68,4 +65,5 @@ export default {
   signUp,
   signIn,
   findById,
+  getUserOrFail,
 };

@@ -21,6 +21,8 @@ export async function ensureAuthenticatedMiddleware(
       userId: number;
     };
     const user = await userService.findById(userId);
+    delete user.password;
+
     res.locals.user = user;
 
     next();

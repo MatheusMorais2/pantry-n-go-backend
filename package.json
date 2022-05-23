@@ -23,6 +23,9 @@
   "bugs": {
     "url": "https://github.com/MatheusMorais2/pantry-n-go-backend/issues"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "homepage": "https://github.com/MatheusMorais2/pantry-n-go-backend#readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

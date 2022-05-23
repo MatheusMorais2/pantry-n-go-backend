@@ -3,7 +3,6 @@ import userService from "../services/userService.js";
 
 export interface signupData {
   email: string;
-  name: string;
   password: string;
   confirmPassword: string;
 }
